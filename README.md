@@ -1,54 +1,57 @@
-# Apply filters to SQL queries [cite: 1]
+# SQL Filter Applications: Security Investigation and Asset Management
 
-## Project Description [cite: 2]
-The organization is working to make their system more secure[cite: 3]. To ensure system safety, I investigate all potential security issues and update employee computers as needed[cite: 4]. The following steps provide examples of SQL filters used to perform security-related tasks[cite: 5].
+## Project Description
+This project was completed as part of the **Google Cybersecurity Professional Certificate**. The primary objective was to investigate potential security issues and manage organizational assets by applying SQL filters to internal databases. Using the MariaDB environment, I performed several security-related tasks to ensure system safety and data integrity.
 
 ---
 
 ## Security Investigation Scenarios
 
-### 1. Retrieve After-Hours Failed Login Attempts [cite: 6]
-There was a potential security incident that occurred after business hours (18:00)[cite: 7]. I created a SQL query to filter for failed login attempts that occurred after this time[cite: 8].
+### 1. Retrieve After-Hours Failed Login Attempts
+An investigation was required for a potential security incident occurring after 18:00. I filtered for login attempts that were both unsuccessful and occurred outside of standard business hours.
 
-* **Query Logic**: I selected all data from the `log_in_attempts` table[cite: 10].
-* **Filter**: Used a `WHERE` clause with an `AND` operator to output only login attempts that occurred after 18:00 and were unsuccessful[cite: 11].
+* **Query Logic**: Selected all columns from the `log_in_attempts` table.
+* **Filters**: Applied a `WHERE` clause with the `AND` operator to combine two conditions: `login_time > '18:00'` and `success = 'FALSE'`.
 
-### 2. Retrieve Login Attempts on Specific Dates [cite: 12]
-A suspicious event occurred on 2022-05-09[cite: 13]. Any login activity that happened on this date or on the day before needed to be investigated[cite: 13].
+### 2. Retrieve Login Attempts on Specific Dates
+A suspicious event was identified on 2022-05-09. To understand the scope, I investigated all login activity from that day and the previous day (2022-05-08).
 
-* **Query Logic**: This query returns all login attempts that occurred on 2022-05-09 or 2022-05-08[cite: 15].
-* **Filter**: Used a `WHERE` clause with an `OR` operator to filter for either date[cite: 17].
+* **Query Logic**: Targeted the `log_in_attempts` table to find activity within a specific 48-hour window.
+* **Filters**: Used the `OR` operator to include records matching either of the two specific dates.
 
-### 3. Retrieve Login Attempts Outside of Mexico [cite: 18]
-After investigating the organization’s data, I identified a need to filter for login attempts occurring outside of Mexico[cite: 19].
+### 3. Retrieve Login Attempts Outside of Mexico
+During the investigation, it became necessary to audit login attempts originating from locations other than Mexico.
 
-* **Query Logic**: Used a `WHERE` clause with `NOT` to filter for countries other than Mexico[cite: 22].
-* **Pattern Matching**: I used `LIKE` with `'MEX%'` as the pattern because the dataset represents Mexico as both 'MEX' and 'MEXICO'[cite: 23].
-* **Wildcards**: The percentage sign (`%`) was used to represent any number of unspecified characters[cite: 24].
+* **Query Logic**: Used pattern matching to identify geographical data.
+* **Filters**: Employed `NOT` and `LIKE` with the pattern `'MEX%'`. 
+* **Wildcards**: The `%` wildcard was used to ensure the filter excluded both 'MEX' and 'MEXICO' entries from the results.
 
 ---
 
 ## Asset Management and Updates
 
-### 4. Retrieve Employees in Marketing [cite: 25]
-My team needed to obtain information about employees in the ‘Marketing’ department to update certain machines[cite: 26].
+### 4. Retrieve Employees in Marketing
+To facilitate a hardware update for the Marketing department in the East building, I extracted a specific list of employee machines.
 
-* **Query Logic**: Filtered for employees in the Marketing department who also work in the East building[cite: 29].
-* **Filter**: Used `department = 'Marketing'` and `office LIKE 'East%'` joined by the `AND` operator[cite: 30, 31].
+* **Query Logic**: Joined departmental and location criteria.
+* **Filters**: Used `AND` to filter for `department = 'Marketing'` and `office LIKE 'East%'`.
 
-### 5. Retrieve Employees in Finance or Sales [cite: 32]
-The team needed to perform a different update to the computers of all employees in the Finance or the Sales department[cite: 33].
+### 5. Retrieve Employees in Finance or Sales
+The security team scheduled a specialized update for all computers belonging to the Finance and Sales departments.
 
-* **Query Logic**: This query returns all employees in the Finance and Sales departments[cite: 35].
-* **Filter**: Used the `OR` operator because I wanted all employees who are in either department[cite: 38].
+* **Query Logic**: Identified all users belonging to either department for a batch update.
+* **Filters**: Used the `OR` operator to capture employees if they belonged to either the 'Finance' or 'Sales' teams.
 
-### 6. Retrieve All Employees Not in IT [cite: 41]
-A security update was required for employees who are not in the Information Technology department[cite: 42].
+### 6. Retrieve All Employees Not in IT
+A general security patch was required for all staff members, excluding the Information Technology department.
 
-* **Query Logic**: The query returns all employees not in the IT department[cite: 45].
-* **Filter**: Used a `WHERE` clause with `NOT` to exclude that specific department[cite: 47].
+* **Query Logic**: Used exclusion logic to generate a list of all non-IT personnel.
+* **Filters**: Applied the `NOT` operator on the `department` column to filter out 'Information Technology'.
 
 ---
 
-## Summary [cite: 48]
-I applied filters to SQL queries to get specific information on login attempts and employee machines[cite: 49]. I used two different tables, `log_in_attempts` and `employees`, and applied `AND`, `OR`, and `NOT` operators to filter for the specific information needed for each task[cite: 50]. I also used `LIKE` and the percentage sign (`%`) wildcard to filter for specific patterns[cite: 51].
+## Technical Summary
+This project demonstrates proficiency in SQL data retrieval for cybersecurity purposes. Key skills applied include:
+* **Database Interaction**: Querying the `log_in_attempts` and `employees` tables.
+* **Logic Operators**: Strategic use of `AND`, `OR`, and `NOT` for precise data segmentation.
+* **Advanced Filtering**: Utilizing `LIKE` and `%` wildcards for flexible pattern matching in security logs.
